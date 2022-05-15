@@ -1,1 +1,15 @@
-# openGLstudy
+##ObvCmakeFunctions
+#2022.02.24
+1.func_add_code_path_to_executable支持输入多个目录，英文分号隔开
+#2022.02.17
+1.修复func_add_code_path_to_executable注释错误
+2.func_md_to_mt_in_msvc修改为mac_md_to_mt_in_msvc，避免全局编译变量未被修改的情况
+#2022.02.11
+1.支持不通过cmake预设方式构建项目
+2.支持按文件夹对源代码文件进行分组管理
+#2022.02.07
+1.添加函数注释，增加部分内部变量设置提示
+2.取消默认设置debug版本程序后缀添加"d"的操作
+3.添加代码目录到项目支持".h"/".hpp"/".cpp"/".cxx"/".inl"/".c"后缀文件
+#2021.01.27
+1.第一次发布
