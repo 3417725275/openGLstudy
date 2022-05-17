@@ -15,7 +15,6 @@
 #include "./shader.h"
 
 #include <string>
-#include <fstream>
 #include <sstream>
 #include <iostream>
 #include <map>
@@ -176,6 +175,8 @@ private:
     // the required info is returned as a Texture struct.
     vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
     {
+        //在图像加载时翻转y轴
+        stbi_set_flip_vertically_on_load(true);
         vector<Texture> textures;
         for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
         {
