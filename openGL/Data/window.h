@@ -1,19 +1,15 @@
 #pragma once
 #include <iostream>
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "camera.h"
 #include "shader.h"
 
 typedef void (*frameBuffer_size_callback)(GLFWwindow*, int, int);
-typedef void (*mouse_callback)(GLFWwindow*, double, double);
-typedef void (*scroll_callback)(GLFWwindow*, double, double);
 
 class Window
 {
 public:
-	Window(const unsigned int width, const unsigned height, const char* name) :_width(width), _height(height), _window(nullptr)
+	Window(unsigned int width, unsigned height, const char* name) :_width(width), _height(height), _window(nullptr)
 	{
 		_window = glfwCreateWindow(width, height, name, NULL, NULL);
 		if (_window == NULL)
@@ -31,10 +27,12 @@ public:
 
 public:
 	GLFWwindow* getGLFWwindow() { return _window; }
+	unsigned int getWidth() { return _width; }
+	unsigned int getHeight() { return _height; }
 
 private:
-	const unsigned int _width;
-	const unsigned int _height;
+	unsigned int _width;
+	unsigned int _height;
 	GLFWwindow* _window;
 
 };

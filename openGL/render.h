@@ -1,4 +1,6 @@
 #pragma once
+#include <glm/glm.hpp>
+#include "Data/window.h"
 
 
 class Window;
@@ -7,28 +9,43 @@ class Model;
 class Camera;
 class VertShader;
 class FragShader;
-class GLFWwindow;
+struct GLFWwindow;
+typedef void (*mouse_callback)(GLFWwindow*, double, double);
+typedef void (*scroll_callback)(GLFWwindow*, double, double);
 class RenderProgram
 {
 public:
 	RenderProgram(Window* window, Camera* camera, ShaderProgram* shaderProgram, Model* model);
-	~RenderProgram() = default;
+
+	~RenderProgram() {}
 
 public:
-	void render() const;
+	void render();
+	void activeCallback()
+	{
+		set_frame_buffer_size_callback();
+		set_mouse_callback();
+		set_scroll_callback();
+	}
 
-	void activeCallback();
+public:
+	glm::mat4 getProjectionMatrix();
+	glm::mat4 getViewMatrix();
+	glm::mat4 getModelMatrix();
+
 public:
 	//回调函数，设置视口大小为窗口的大小，每当窗口调整大小的时候调用这个函数
-	void set_frame_buffer_size_callback(frameBuffer_size_callback callback = nullptr) const;
+	void set_frame_buffer_size_callback(frameBuffer_size_callback callback = nullptr);
 	//鼠标转动时，调整摄像机视角
-	void set_mouse_callback(mouse_callback callback = nullptr) const;
+	void set_mouse_callback(mouse_callback callback = nullptr);
 	//滚轮移动，调整摄像机视角
-	void set_scroll_callback(scroll_callback callback = nullptr) const;
-	
+	void set_scroll_callback(scroll_callback callback = nullptr);
+
+	void mouseCallback(GLFWwindow* window, double xposIn, double yposIn);
+
 private:
-	void processInput(GLFWwindow* window) const;
-	bool check() const;
+	void processInput(GLFWwindow* window);
+	bool check();
 
 public:
 	void setCamera(Camera* camera) { _camera = camera; }
@@ -47,5 +64,4 @@ private:
 	ShaderProgram* _shaderProgram = nullptr;
 	VertShader* _vertshader = nullptr;
 	FragShader* _fragshader = nullptr;
-
-}
+};
